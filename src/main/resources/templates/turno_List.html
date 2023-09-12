@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Consulta de Turnos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" th:href="@{/}">MEDIFOUR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            
+            <h1 class="my-4 text-center">Consulta de Turnos</h1>
+            <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+            <label for="filtro">Filtra lo que quieras:</label>
+            <input type="text" id="filtro" placeholder="Buscar turnos...">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Profesional</th>
+                        <th>Especialidad</th>
+                        <th>Disponibilidad</th>
+                        <th>Agendar Cita</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="turno, iterStat : ${turnos}" id="fila-${iterStat.index}">
+                        <td th:text="${turno.fecha}"></td>
+                        <td th:text="${turno.hora}"></td>
+                        <td th:text="${turno.profesional.nombre} + ' ' + ${turno.profesional.apellido}"></td>
+                        <td th:text="${turno.profesional.especialidad}"></td>
+                        <td th:text="${turno.disponibilidad} ? 'Disponible' : 'No disponible'"></td>
+                        <td>
+                            <form th:action="@{/turno/agendar-turno}" method="post">
+                                <!-- Agregar un campo oculto para enviar el ID del turno -->
+                                <input type="hidden" name="turnoId" th:value="${turno.id}" />
+
+                                <button type="submit" class="btn btn-primary btn-agendar">Agendar Cita</button>
+                            </form> 
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <a href="javascript: history.go(-1)">VOLVER ATRÁS</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script>
+            document.getElementById('filtro').addEventListener('input', function () {
+            const filtro = this.value.toLowerCase();
+            const filas = document.querySelectorAll('tbody tr');
+
+            filas.forEach(function (fila) {
+            const contenido = fila.textContent.toLowerCase();
+            if (contenido.includes(filtro)) {
+            fila.style.display = 'table-row';
+            } else {
+            fila.style.display = 'none';
+            }
+            });
+            });
+        </script>
+    </body>
+</html>
+

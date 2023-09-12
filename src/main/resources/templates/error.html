@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Error</title>
+    <meta charset="utf-8">
+    <link href="css/one-page-wonder.min.css" rel="stylesheet">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url('/assets/img/imagen_error.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .error-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20vh;
+            border: solid #1977cc;
+            text-align: center;
+        }
+
+        .col-md-6 {
+            font-weight: 600;
+        }
+
+        /* Estilo para el mensaje "Hola de vuelta" */
+        .saludo {
+            font-size: 24px;
+            margin: 0; /* Elimina el margen para que esté pegado al mensaje de error */
+            color: #333; /* Cambia el color del texto */
+        }
+
+        /* Estilo para el botón "Volver" */
+        .boton-volver {
+            margin-top: 20px; /* Espaciado superior */
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+            <div class="alert alert-danger text-center error-container" role="alert">
+                <p class="saludo" th:if="${session.usuariosession != null}"
+                    th:text="'Hola de vuelta ' + ${session.usuariosession.nombre}"></p>
+                <p class="saludo" th:unless="${session.usuariosession != null}">Hola desconocido</p>
+                <strong>¡Ups! Ha ocurrido un error.</strong><br>
+                <div class="medifour">
+                    <a class="navbar-brand" th:text="'Error ' + ${codigo}"></a>
+                    <p class="medifourerror" th:text="${mensaje}"></p>
+                </div>
+            </div>
+
+            <!-- Botón "Volver" centrado y espaciado superior -->
+            <div class="container text-center boton-volver">
+                <a th:href="@{/}" class="btn btn-secondary btn-lg botones">Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+

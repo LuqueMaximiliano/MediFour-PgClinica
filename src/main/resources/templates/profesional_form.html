@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro - Medifour</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body {
+                background-image: url('/assets/img/paciente_form.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+            .card {
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 100px;
+                border: solid #1977cc;
+            }
+            .col-md-6{
+                font-weight: 600;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" th:href="@{/}">Medifour</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Especialidades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/profesional/listar}">Doctores</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+
+       <div class="container mt-4">
+         
+            
+            <div class="card">
+                <div class="card-body">
+            <h2>Registro de Médicos</h2>
+            <p>(Al completar su registro correctamente, deberá esperar la habilitación del ADMIN)</p>
+            <form th:action="@{/profesional/registrar}" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="dni">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="Horarios-disponibles">Horarios disponibles</label>
+                        <div class="form-row">
+
+                            <h4>Inicio</h4>
+
+                            <div class="col-md-3 mb-3">
+                                <select class="form-control" id="horarioEntrada" name="horarioEntrada" required>
+                                    <option value="06:00">06:00</option>
+                                    <option value="06:30">06:30</option>
+                                    <option value="07:00">07:00</option>
+                                    <option value="07:30">07:30</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="08:30">08:30</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="20:30">20:30</option>
+                                    <option value="21:00">21:00</option>
+                                    <option value="21:30">21:30</option>
+                                    <option value="22:00">22:00</option>
+                                    <option value="22:30">22:30</option>
+                                    <option value="23:00">23:00</option>
+                                    <option value="23:30">23:30</option>
+                                    
+                                    <!-- Agrega más opciones según tus necesidades -->
+                                </select>
+                            </div>
+
+                            <h4>Fin</h4>
+
+                            <div class="col-md-3 mb-3">
+                                <select class="form-control" id="horarioSalida" name="horarioSalida" required>
+                                    <option value="06:00">06:00</option>
+                                    <option value="06:30">06:30</option>
+                                    <option value="07:00">07:00</option>
+                                    <option value="07:30">07:30</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="08:30">08:30</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="20:30">20:30</option>
+                                    <option value="21:00">21:00</option>
+                                    <option value="21:30">21:30</option>
+                                    <option value="22:00">22:00</option>
+                                    <option value="22:30">22:30</option>
+                                    <option value="23:00">23:00</option>
+                                    <option value="23:30">23:30</option>
+                                    <!-- Agrega más opciones según tus necesidades -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="matricula">Matrícula:</label>
+                                <input type="text" id="matricula" name="matricula" placeholder="Ingrese su Matrícula" required>
+                            </div>
+                        </div>
+                    
+                </div>
+
+
+
+                <div class="col-md-6 mb-3">
+                    <label for="especialidad">Especialidad</label>
+                    <select name="especialidad" id="especialidad">
+                        <option value="CLINICA">Clinica</option>
+                        <option value="PEDIATRIA">Pediatria</option>
+                        <option value="GINECOLOGIA">Ginecologia</option>
+                        <option value="CARDIOLOGIA">Cardiologia</option>
+                    </select>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="lunes" value="LUNES" name="diasDisponibles">
+                                <label class="custom-control-label" for="lunes">Lunes</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="martes" value="MARTES" name="diasDisponibles">
+                                <label class="custom-control-label" for="martes">Martes</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="miercoles" value="MIERCOLES" name="diasDisponibles">
+                                <label class="custom-control-label" for="miercoles">Miércoles</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="jueves" value="JUEVES" name="diasDisponibles">
+                                <label class="custom-control-label" for="jueves">Jueves</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="viernes" value="VIERNES" name="diasDisponibles">
+                                <label class="custom-control-label" for="viernes">Viernes</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="sabado" value="SABADO" name="diasDisponibles">
+                                <label class="custom-control-label" for="sabado">Sábado</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="domingo" value="DOMINGO" name="diasDisponibles">
+                                <label class="custom-control-label" for="domingo">Domingo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <!-- Precio de consultas -->
+            <div class="col-md-6 mb-3">
+                <label for="precio">Precio consulta</label>
+                <input type="number" class="form-control" id="precioConsulta" placeholder="Precio Consulta" name="precioConsulta" required>
+            </div>
+            <!-- Se ingresa la imagen de perfil -->
+            <div class="col-md-6 mb-3">
+                <label for="imagen">Imagen</label>
+                <input type="file" class="form-control-file" id="imagen" name="archivo">
+            </div>
+        </div>
+
+        <!-- Se ingresa las contraseñas -->
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña - Minimo 5 caracteres" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="password">Contraseña de nuevo</label>
+                <input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir contraseña" required>
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit" value="Registrar">Registrarse</button>
+        
+    </form>
+</div>
+        </div>
+            </div>
+    <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                        <a href="javascript: history.go(-1)">VOLVER ATRÁS</a>
+                    </div>
+                </div>
+            </section>
+       
+        <script>
+            document.getElementById('filtro').addEventListener('input', function () {
+            const filtro = this.value.toLowerCase();
+            const filas = document.querySelectorAll('tbody tr');
+
+            filas.forEach(function (fila) {
+            const contenido = fila.textContent.toLowerCase();
+            if (contenido.includes(filtro)) {
+            fila.style.display = 'table-row';
+            } else {
+            fila.style.display = 'none';
+            }
+            });
+            });
+        </script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

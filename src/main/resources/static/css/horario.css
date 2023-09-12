@@ -1,0 +1,100 @@
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+nav {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+}
+
+nav .nav-item a:hover {
+  color: #000;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.sidebar {
+  background-color: #fff;
+  padding: 15px;
+}
+
+.sidebar h1 {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.sidebar ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar ul li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  background-color: #eee;
+}
+
+.content {
+  padding: 15px;
+}
+
+.especialidad {
+  margin-bottom: 15px;
+}
+
+.especialidad h2 {
+  font-size: 18px;
+}
+
+.especialidad p {
+  margin-bottom: 10px;
+}
+
+.especialidad button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.especialidad button:hover {
+  background-color: #0064d2;
+}

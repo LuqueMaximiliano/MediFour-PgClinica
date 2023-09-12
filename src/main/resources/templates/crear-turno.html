@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crear Turno</title>
+    </head>
+    <body>
+        <h1>Crear Turno</h1>
+        <form action="/crear-turno" method="POST">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required><br><br>
+
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" name="hora" required><br><br>
+
+            <label for="consulta">Consulta:</label>
+            <input type="text" id="consulta" name="consulta" required><br><br>
+
+            <label for="idProfesional">ID Profesional:</label>
+            <input type="text" id="idProfesional" name="idProfesional" required><br><br>
+
+            <label for="idPaciente">ID Paciente:</label>
+            <input type="text" id="idPaciente" name="idPaciente" required><br><br>
+
+            <button type="submit">Crear Turno</button>
+        </form>
+    </body>
+</html>

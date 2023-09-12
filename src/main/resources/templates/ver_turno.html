@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detalles del Turno</title>
+    </head>
+    <body>
+        <h1>Detalles del Turno</h1>
+        <p><strong>ID del Turno:</strong> {{ turno.id }}</p>
+        <p><strong>Fecha:</strong> {{ turno.fecha }}</p>
+        <p><strong>Hora:</strong> {{ turno.hora }}</p>
+        <p><strong>Consulta:</strong> {{ turno.consulta }}</p>
+        <p><strong>Estado:</strong> {{ turno.disponibilidad ? 'Disponible' : 'No disponible' }}</p>
+        <p><strong>Profesional:</strong> {{ turno.profesional.nombre }}</p>
+        <p><strong>Pacientes Elegidos:</strong></p>
+        <ul>
+            {{#each turno.pacientesElegidos }}
+            <li>{{ this.nombre }}</li>
+            {{/each}}
+        </ul>
+        <a href="/turnos">Volver a la lista de turnos</a>
+    </body>
+</html>

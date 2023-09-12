@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perfil Paciente</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link href="/css/perfil_paciente.css" rel="stylesheet">
+        <style>
+            .profile-image {
+                max-width: 200px;
+                display: block;
+                margin: 0 auto 20px;
+            }
+        </style>
+    </head>
+    <body style="background-image: url('/assets/img/paciente_form.jpg'); background-size: cover;">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" >Medifour</a>
+                <ul class="navbar-nav ml-auto">
+                    <!--   <li class="nav-item"> th:href="@{}"
+                          <a class="nav-link" href="#">Acerca de nosotros</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Especialidades</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Doctores</a>
+                      </li>-->
+                    <li class="d-flex flex-column align-items-center"><a class="nav-link" href="#">Agenda un turno</a></li>
+                    <li class="d-flex flex-column align-items-center"><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+
+                    <li class="d-flex flex-column align-items-center">
+                        <a th:if="${session.usuariosession.imagen != null}" class="d-flex align-items-center">
+                            <div class="circular-image-container">
+                                <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" style="max-width: 100px; max-height: 60px;">
+                            </div>
+                        </a>
+                        <p class="perfilusuario" th:if="${session.usuariosession != null}">
+                            <span class="nombre-perfil" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></span>
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Editar Perfil Paciente</h2>
+                            <div class="text-center">
+                                <a th:if="${session.usuariosession.imagen != null}" th:href="@{/imagen/perfil/__${session.usuariosession.id}__}">
+                                    <img class="profile-image" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Perfil">
+                                </a>
+                            </div>
+
+                            <form th:action="@{/paciente/perfil/__${session.usuariosession.id}__}" method="POST" enctype="multipart/form-data">
+                                <input hidden th:value="${session.usuariosession.id}" name="id">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${session.usuariosession.nombre}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellido">Apellido:</label>
+                                    <input type="text" class="form-control" id="apellido" name="apellido" th:value="${session.usuariosession.apellido}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:value="${session.usuariosession.fechaNacimiento}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dni">DNI:</label>
+                                    <input type="number" class="form-control" id="dni" name="dni" th:value="${session.usuariosession.dni}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono">Teléfono:</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" th:value="${session.usuariosession.telefono}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" th:value="${session.usuariosession.email}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tieneObraSocial">Tiene Obra Social:</label>
+                                    <select class="form-control" id="tieneObraSocial" name="tieneObraSocial">
+                                        <option value="true">Sí</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="obraSocial">Seleccione una Obra Social:</label>
+                                    <select class="form-control" id="obraSocial" name="obraSocial">
+                                        <option value="">Seleccione una opción</option>
+                                        <option value="OSEP">OSEP</option>
+                                        <option value="SWISSMEDICAL">SWISSMEDICAL</option>
+                                        <option value="OSDE">OSDE</option>
+                                        <option value="OSPE">OSPE</option>
+                                        <option value="SANCOR">SANCOR</option>
+                                        <option value="MEDICUS">MEDICUS</option>
+                                        <option value="OMINT">OMINT</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numeroAfiliado">Número de Afiliado:</label>
+                                    <input type="number" class="form-control" id="numeroAfiliado" name="numeroAfiliado" th:value="${session.usuariosession.numeroAfiliado}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Contraseña:</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password2">Confirmar Contraseña:</label>
+                                    <input type="password" class="form-control" id="password2" name="password2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="archivo">Foto de perfil:</label>
+                                    <input type="file" class="form-control-file" id="archivo" name="archivo">
+                                </div>
+                                <button class="btn btn-primary btn-block" type="submit" value="Registrar">Modificar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
+
+                </div>
+            </div>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
+

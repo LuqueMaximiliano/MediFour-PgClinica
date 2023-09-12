@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Mis Turnos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="my-4 text-center">Mis Turnos</h1>
+            <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" th:href="@{/}">MEDIFOUR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Profesional</th>
+                        <th>Especialidad</th>
+                        <th>Paciente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="turno : ${misTurnosProfesional}">
+                        <td th:text="${turno.fecha}"></td>
+                        <td th:text="${turno.hora}"></td>
+                        <td th:text="${turno.profesional.nombre} + ' ' + ${turno.profesional.apellido}"></td>
+                        <td th:text="${turno.profesional.especialidad}"></td>
+                        <td th:text="${turno.paciente.nombre} + ' ' + ${turno.paciente.apellido}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="container text-center boton-volver">
+                <a th:href="@{/inicio}" class="btn btn-secondary btn-lg botones">Volver</a>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Elegir Turno</title>
+    </head>
+    <body>
+        <h2>Elegir Turno</h2>
+
+        <form action="/paciente/elegir-turno" method="post">
+            <label for="idTurno">Seleccione un turno:</label>
+            <select name="idTurno" id="idTurno">
+                <!-- Aquí puedes usar Thymeleaf para iterar sobre la lista de turnos -->
+                <option th:each="turno : ${turnos}" th:value="${turno.id}" th:text="${turno.fecha} + ' - ' + ${turno.hora}"></option>
+            </select>
+            <br>
+            <input type="submit" value="Elegir Turno">
+        </form>
+
+        <p th:if="${exito}" style="color: green;">${exito}</p>
+        <p th:if="${error}" style="color: red;">${error}</p>
+    </body>
+</html>

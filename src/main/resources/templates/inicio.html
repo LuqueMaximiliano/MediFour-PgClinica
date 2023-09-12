@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+        <title>Medifour</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+
+        <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+        <!-- Template Main CSS File -->
+        <link href="/assets/css/style.css" rel="stylesheet">
+
+    </head>
+    <body>
+
+        <!-- ======= Top Bar ======= -->
+        <div id="topbar" class="d-flex align-items-center fixed-top">
+            <div class="container d-flex justify-content-between">
+                <div class="contact-info d-flex align-items-center">
+                    <i class="bi bi-envelope"></i> <a href="mailto:info@Medifour.com">info@Medifour.com</a>
+                    <i class="bi bi-phone"></i> +51 558 863 3667
+                </div>
+                <div class="d-none d-lg-flex social-links align-items-center">
+                    <a href="https://es-la.facebook.com/login" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top">
+            <div class="container d-flex align-items-center">
+
+                <h1 class="logo me-auto"><a th:href="@{/login}">MediFour</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!--<a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                <nav id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                        <li><a class="nav-link scrollto active" href="#hero">Acerca de Nosotros</a></li>
+                        <!-- <li><a class="nav-link scrollto" href="#services">Servicios</a></li> -->
+                        <li><a class="nav-link scrollto" href="#departments">Especialidades</a></li>
+                        <li><a class="nav-link scrollto" th:href="@{/profesional/listar}">Doctores</a></li>
+                        <li sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/usuario/listar}">Ir al Panel</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    MENU
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/paciente/perfil/{id}}">Gestiona mi perfil</a></li>
+                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/profesional/perfil/__${session.usuariosession.id}__}">Gestiona mi perfil</a></li> 
+                                    <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/turno/mis_turnos}">Mis Turnos</a></li>
+                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/turno/mis_turnos_profesional}">Mis Turnos</a></li>
+                                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+                                </ul>                  
+                            </div>
+                        </li>
+                        <li class="d-flex flex-column align-items-center">
+                            <a th:if="${session.usuariosession.imagen != null}" class="d-flex align-items-center">
+                                <div class="circular-image-container">
+                                    <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" style="max-width: 100px; max-height: 60px;">
+                                </div>
+                            </a>
+                            <p class="perfilusuario" th:if="${session.usuariosession != null}">
+                                <span class="nombre-perfil" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></span>
+                            </p>
+                        </li>
+                    </ul>
+                </nav><!-- .navbar -->
+
+            </div>
+        </header><!-- End Header -->
+
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+
+        <!-- ======= Hero Section ======= -->
+        <section id="hero" class="d-flex align-items-center">
+            <div class="container">
+                <h1>Bienvenido a Medifour</h1>
+                <h2 style="font-weight: bold;color: #007bff; text-align: center;" class="perfilusuario" th:if="${session.usuariosession != null}" th:text=" ${session.usuariosession.nombre}+' '+${session.usuariosession.apellido} "></h2>
+                <h2>Somos lideres en innovacion de la atencion en linea,<br></br>
+                    con nuestras especialidades medicas.</h2>
+                <a href="#about" class="btn-get-started scrollto">Conocenos</a>
+            </div>
+        </section>
+
+        <!-- End Hero -->
+
+        <main id="main">
+
+            <!-- ======= Why Us Section ======= -->
+            <section id="why-us" class="why-us">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-lg-4 d-flex align-items-stretch">
+                            <div class="content">
+                                <h3>Porque escoger Medifour?</h3>
+                                <p>
+                                    Dia a Dia ganamos mas pacientes con nuestro servicio de alta calidad, en nuestras especialidades encontraras la mejor atencion en lines de una manera agil y sencilla para ti y toda tu familia.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 d-flex align-items-stretch">
+                            <div class="icon-boxes d-flex flex-column justify-content-center">
+                                <div class="row">
+                                    <div class="col-xl-4 d-flex align-items-stretch">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="bx bx-receipt"></i>
+                                            <h4>Nuestros Valores</h4>
+                                            <p>Respeto, confidencialidad, organizacion, compromiso confianza y equidad</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 d-flex align-items-stretch">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="bx bx-cube-alt"></i>
+                                            <h4>Nuestra labor</h4>
+                                            <p>Conectar personas con las especialidades medicas sin tener que salir de casa </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 d-flex align-items-stretch">
+                                        <div class="icon-box mt-4 mt-xl-0">
+                                            <i class="bx bx-images"></i>
+                                            <h4>Nuestros pacientes</h4>
+                                            <p>Cada persona que atendemos tiene un historia clinica detallada segun su diagnostico</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End .content-->
+                        </div>
+                    </div>
+
+                </div>
+            </section><!-- End Why Us Section -->
+
+
+
+            <!-- ======= Counts Section ======= -->
+            <section id="counts" class="counts">
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-6">
+                            <div class="count-box">
+                                <i class="fas fa-user-md"></i>
+                                <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Doctores</p>
+                                <p>Capacitados</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                            <div class="count-box">
+                                <i class="far fa-hospital"></i>
+                                <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Especialidades</p>
+                                <p>Medicas</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                            <div class="count-box">
+                                <i class="fas fa-flask"></i>
+                                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Laboratorios y Centros de Terapia fisica</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                            <div class="count-box">
+                                <i class="fas fa-award"></i>
+                                <span data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="1" class="purecounter"></span>
+                                <p>Reconocimientos</p>
+                                <p>de Nuestros Pacientes</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section><!-- End Counts Section -->
+
+            <!-- ======= Services Section ======= 
+            <section id="services" class="services">
+              <div class="container">
+        
+                <div class="section-title">
+                  <h2>Services</h2>
+                  <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                </div>
+        
+                <div class="row">
+                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="icon-box">
+                      <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                      <h4><a href="">Citas con alta prioridad</a></h4>
+                      <p>Nuestra agenda te ofrece tiempos de espera cortos.</p>
+                    </div>
+                  </div>
+        
+                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                    <div class="icon-box">
+                      <div class="icon"><i class="fas fa-pills"></i></div>
+                      <h4><a href="">Amplia lista de medicamentos</a></h4>
+                      <p>Los mejores medicamentos para cada diagnostico.</p>
+                    </div>
+                  </div>
+        
+                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box">
+                      <div class="icon"><i class="fas fa-hospital-user"></i></div>
+                      <h4><a href="">Manejo del Dolor</a></h4>
+                      <p>Centros de rehabilitacion fisica para ayudarte al manejo del dolor.</p>
+                    </div>
+                  </div>
+                </div>
+        
+              </div>-->
+        </section><!-- End Services Section --> 
+
+        <!-- ======= Appointment Section ======= 
+        <section id="appointment" class="appointment section-bg">
+          <div class="container">
+    
+            <div class="section-title">
+              <h2>Agendamiento de Citas</h2>
+              <p>Completa toda la informacion para que se pueda agendar su cita en el menor tiempo posible, recuerda que recibiras una confrimacion via correo electronico y tambien podras ver los detalles desde tu perfil como paciente.</p>
+            </div>
+    
+            <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="Please enter a valid email">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                  <input type="tel" class="form-control" name="phone" id="phone" placeholder="Telefono" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 form-group mt-3">
+                  <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Fecha de la cita" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                  <select name="department" id="department" class="form-select">
+                    <option value="">Especialidad</option>
+                    <option value="Department 1">Medicina Interna</option>
+                    <option value="Department 2">Psiquiatria</option>
+                    <option value="Department 3">Medicina General</option>
+                    <option value="Department 2">Fisiatria</option>
+                    <option value="Department 3">Ortopedia</option>
+                  </select>
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-4 form-group mt-3">
+                  <select name="doctor" id="doctor" class="form-select">
+                    <option value="">Seleciona tu Doctor</option>
+                    <option value="Doctor 1">Doctor 1</option>
+                    <option value="Doctor 2">Doctor 2</option>
+                    <option value="Doctor 3">Doctor 3</option>
+                    <option value="Doctor 4">Doctor 4</option>
+                    <option value="Doctor 5">Doctor 5</option>
+                    <option value="Doctor 6">Doctor 6</option>
+                    <option value="Doctor 7">Doctor 7</option>
+                    <option value="Doctor 8">Doctor 8</option>
+                    <option value="Doctor 9">Doctor 9</option>
+                  </select>
+                  <div class="validate"></div>
+                </div>
+              </div>
+    
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Observaciones Adicionales"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Cargando</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Tu cita se ha agendado correctamente. Gracias!</div>
+              </div>
+              <div class="text-center"><button type="submit">Agendar Cita</button></div>
+            </form>
+    
+          </div>
+        </section>  -->
+
+        <!-- End Appointment Section -->
+
+        <!-- ======= Departments Section ======= -->
+        <section id="departments" class="departments">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Especialidades</h2>
+                    <p>En Medifour encontraras cuatro especialides en las cuales podremos ayudarte de manera calida y agil al momento que requieras solicitar una cita para tu pronta atencion</p>
+                </div>
+
+                <div class="row gy-4">
+                    <div class="col-lg-3">
+                        <ul class="nav nav-tabs flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Medicina Clínica</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Pediatría</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Ginecología</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Cardiología</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="tab-1">
+                                <div class="row gy-4">
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3>Medicina Clinica</h3>
+                                        <p class="fst-italic">La Medicina Clinica se ocupa del diagnóstico y el tratamiento de las enfermedades a través del estudio del enfermo, hecho directamente por el médico.</p>
+                                    </div>
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <div class="row gy-4">
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3>Pediatría</h3>
+                                        <p class="fst-italic">Parte de la medicina que se ocupa del estudio del crecimiento y el desarrollo de los niños hasta la adolescencia, así como del tratamiento de sus enfermedades.</p>
+                                    </div>
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-3">
+                                <div class="row gy-4">
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3>Ginecología</h3>
+                                        <p class="fst-italic">Ginecología es la especialidad médica que brinda atención y vela por la salud de la mujer a lo largo de su vida, especialmente en lo que se refiere a la reproducción y al embarazo.</p>
+                                    </div>
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab-4">
+                                <div class="row gy-4">
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3>Cardiología</h3>
+                                        <p class="fst-italic">Es una especialidad médica dedicada al estudio de las enfermedades del corazón (tanto las orgánicas, que afectan a las válvulas, al miocardio o a la circulación coronaria, como las que se refieren a los trastornos del ritmo cardiaco), y de las repercusiones que otras enfermedades sistémicas (vasculares o no) pueden desempeñar sobre este mismo órgano.</p>
+                                    </div>
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Departments Section -->
+
+        <!-- ======= Doctors Section ======= 
+        <section id="doctors" class="doctors">
+          <div class="container">
+    
+            <div class="section-title">
+              <h2>Doctores</h2>
+            </div>
+    
+            <div class="row">
+    
+              <div class="col-lg-6">
+                <div class="member d-flex align-items-start">
+                  <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
+                  <div class="member-info">
+                    <h4>Juan Manuel Lopez </h4>
+                    <span>Director medico / Medico Internista</span>
+                    <div class="social">
+                      <a href=""><i class="ri-facebook-fill"></i></a>
+                      <a href=""><i class="ri-instagram-fill"></i></a>
+                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="member d-flex align-items-start">
+                  <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
+                  <div class="member-info">
+                    <h4>Sarah Rodriguez</h4>
+                    <span>Medicina General</span>
+                    <div class="social">
+                      <a href=""><i class="ri-facebook-fill"></i></a>
+                      <a href=""><i class="ri-instagram-fill"></i></a>
+                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="col-lg-6 mt-4">
+                <div class="member d-flex align-items-start">
+                  <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
+                  <div class="member-info">
+                    <h4>William Anderson</h4>
+                    <span>Cardiologia</span>
+                    <div class="social">
+                      <a href=""><i class="ri-facebook-fill"></i></a>
+                      <a href=""><i class="ri-instagram-fill"></i></a>
+                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="col-lg-6 mt-4">
+                <div class="member d-flex align-items-start">
+                  <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
+                  <div class="member-info">
+                    <h4>Amanda Martinez</h4>
+                    <span>Neurologia</span>
+                    <div class="social">
+                      <a href=""><i class="ri-facebook-fill"></i></a>
+                      <a href=""><i class="ri-instagram-fill"></i></a>
+                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+          </div>  -->
+    </section><!-- End Doctors Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container d-md-flex py-4">
+
+        <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                <h5>&copy; Copyright <strong><span>Medifour</span></strong>. Todos los derechos reservados </h5>
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+            </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="https://es-la.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>

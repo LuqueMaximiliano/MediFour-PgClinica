@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Lista de Pacientes</title>
+    </head>
+    <body>
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top">
+            <div class="container d-flex align-items-center">
+                <!-- <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>-->
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h1 class="logo me-auto"><a class="navbar-brand" th:href="@{/inicio}">MEDIFOUR</a></h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <select id="selectConsulta" onchange="toggleDivs()">
+            <option selected>ELIJA CONSULTA A REALIZAR</option>
+            <option value="dni">Consulta por DNI</option>
+            <option value="obra">Consulta por Obra Social</option>
+        </select>
+
+        <div id="consultaDniDiv" style="display: none;">
+            <h2>Consulta Paciente por DNI</h2>
+
+            <form th:action="@{/paciente/consultaDni}" method="get">
+                <input type="text" name="dni" placeholder="Ingrese el DNI a buscar">
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
+
+        <div id="consultaObraDiv" style="display: none;">
+            <h2>Consulta Pacientes por Obra Social</h2>
+
+            <form th:action="@{/paciente/consultaObra}" method="get">
+                <select name="obra">
+                    <option selected>seleccione O. Soc.</option>
+                    <option value="OSEP">OSEP</option>
+                    <option value="SWISSMEDICAL">SWISSMEDICAL</option>
+                    <option value="OSDE">OSDE</option>
+                    <option value="OSPE">OSPE</option>
+                    <option value="SANCOR">SANCOR</option>
+                    <option value="MEDICUS">MEDICUS</option>
+                    <option value="OMINT">OMINT</option>
+                </select>
+                <input type="submit" value="Buscar por Obra Social">
+            </form>
+        </div>
+
+
+
+        <script>
+            function toggleDivs() {
+            var selectElement = document.getElementById("selectConsulta");
+            var dniDiv = document.getElementById("consultaDniDiv");
+            var obraDiv = document.getElementById("consultaObraDiv");
+
+            if (selectElement.value === "dni") {
+            dniDiv.style.display = "block";
+            obraDiv.style.display = "none";
+            } else if (selectElement.value === "obra") {
+            dniDiv.style.display = "none";
+            obraDiv.style.display = "block";
+            }
+            }
+        </script>
+
+
+        <div class="container">
+            <h1 class="text-center">Lista de Pacientes</h1>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>E-Mail</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Obra Social</th>
+                        <th>N° de Afiliado</th>
+                        <th>Foto de Perfil</th>
+                        <th sec:authorize="hasRole('ADMIN')">ACCIONES</th>
+                    </tr>
+                <tbody>
+                    <tr th:each="paciente : ${pacientes}">
+                        <td th:text="${paciente.nombre}"></td>
+                        <td th:text="${paciente.apellido}"></td>
+                        <td th:text="${paciente.dni}"></td>
+                        <td th:text="${paciente.telefono}"></td>
+                        <td th:text="${paciente.email}"></td>
+                        <td th:text="${paciente.fechaNacimiento}"></td>
+                        <td th:text="${paciente.obraSocial}"></td>
+                        <td th:text="${paciente.numeroAfiliado}"></td>
+                        <td>
+                            <a th:if="${paciente.imagen != null}" th:href="@{/imagen/perfil/__${paciente.id}__}">
+                                <img th:style="'max-width: 100%; max-height: 100px; margin: auto;'" th:src="@{/imagen/perfil/__${paciente.id}__}"> 
+                            </a>
+                        </td>
+
+
+
+                        <td style="text-align: center; vertical-align: middle;" sec:authorize="hasRole('ADMIN')">
+                            <form sec:authorize="hasRole('ADMIN')" th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
+                                <input type="submit" value="Dar de Baja">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- <div class="container m-5" >
+
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Id del Autor</th>
+                        <th scope="col">Nombre del Autor</th>
+                        <th scope="col" sec:authorize="hasAuthority('ADMIN')">Acciones</th>
+
+                    </tr>
+                </thead>
+                <tbody th:each="autor : ${autores}"> 
+                    <tr>
+                        <th scope="row" th:text="${autor.id}"></th>
+                        <td th:text="${autor.nombre}"></td>
+                        <td>
+                            <a sec:authorize="hasAuthority('ADMIN')" th:href= "@{/autor/modificar/__${autor.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito ð</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+                <div class="card-body">
+                    <h5 class="card-title">Error ð</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div> 
+        
+        -->
+
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/inicio}" class="btn btn-secondary my-2">Volver</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <style>
+            /* Custom CSS */
+            body {
+                padding-top: 20px;
+            }
+
+            /* Center text in cells */
+            table td, table th {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            /* Adjust image size */
+            table img {
+                max-width: 100px;
+                height: auto;
+            }
+        </style>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
+
+

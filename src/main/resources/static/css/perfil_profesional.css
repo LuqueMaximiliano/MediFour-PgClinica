@@ -1,0 +1,188 @@
+/* Estilos generales */
+body {
+   font-family: "Open Sans", sans-serif;
+  color: #444444;
+   
+    margin: 0;
+    padding: 0;
+     
+}
+
+/* Encabezado */
+header {
+    background-color: #2e88e8;
+    color: #ffffff;
+    padding: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2e88e8;
+    color: black;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    text-decoration: none;
+    color: #4b214d;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-nav {
+        margin-top: 10px;
+    }
+
+    .nav-item {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .navbar-brand {
+        margin-bottom: 20px;
+    }
+}
+
+
+.profile span {
+    font-weight: bold;
+}
+
+
+.puntuacion {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.rating {
+    display: inline-block;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    font-size: 24px;
+    color: #f7f7f7;
+    cursor: pointer;
+}
+
+.rating input[type="radio"]:checked ~ label {
+    color: #ffc107;
+}
+
+/* Modificar Perfil */
+.modify-profile {
+    margin-top: 40px;
+}
+
+.modify-profile h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/*----Imagen y nombre de perfil-----------------*/
+
+.circular-image-container {
+    width: 60px; /* Tamaño de la imagen */
+    height: 60px; /* Tamaño de la imagen */
+    display: flex; /* Usar flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    overflow: hidden;
+    border-radius: 50%; /* Borde redondeado */
+    border: 2px solid #1977cc;; /* Borde con un grosor de 2px y color gris (#ccc) */
+    margin-bottom: 10px; /* Esp*/
+}
+
+.circular-image {
+    max-width: 100%; /* Asegurarse de que la imagen no sea más grande que el contenedor */
+    max-height: 100%; /* Asegurarse de que la imagen no sea más grande que el contenedor */
+    object-fit: contain; /* Ajustar imagen para caber dentro del contenedor */
+}
+.card-deck form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Borde semi-transparente */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo del título del formulario */
+.card h2 {
+    color: #2c4964;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los campos de entrada */
+.form-control {
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Estilo del botón */
+.btn-primary {
+    background-color: #2c4964;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #1d3557;
+}
+
+label {
+    font-weight: bold; /* Establece el texto en negrita */
+}
+
+
+
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #007BFF;
+    color: #ffffff;
+    font-size: 14px;
+}

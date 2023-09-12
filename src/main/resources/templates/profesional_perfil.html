@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Perfil Profesional</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link href="/css/perfil_profesional.css" rel="stylesheet">
+    </head>
+    <body style="background-image: url('/assets/img/about.jpg'); background-size: cover;">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" >Medifour</a>
+                <ul class="navbar-nav ml-auto">
+                    <!--   <li class="nav-item"> th:href="@{}"
+                          <a class="nav-link" href="#">Acerca de nosotros</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Especialidades</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">Doctores</a>
+                      </li>-->
+                    <li class="d-flex flex-column align-items-center"><a class="nav-link" href="#">Agenda un turno</a></li>
+                    <li class="d-flex flex-column align-items-center"><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+                    </li>
+                    <li class="d-flex flex-column align-items-center">
+                        <a th:if="${session.usuariosession.imagen != null}" class="d-flex align-items-center">
+                            <div class="circular-image-container">
+                                <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" style="max-width: 100px; max-height: 60px;">
+                            </div>
+                        </a>
+                        <p class="perfilusuario" th:if="${session.usuariosession != null}">
+                            <span class="nombre-perfil" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></span>
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <!-- <div>
+            <h1>Perfil del Profesional</h1>
+            <p>Nombre: <span th:text="${profesional.nombre}"></span></p>
+            <p>Apellido: <span th:text="${profesional.apellido}"></span></p>
+            <p>Fecha de Nacimiento: <span th:text="${profesional.fechaNacimiento}"></span></p>
+            <p>DNI: <span th:text="${profesional.dni}"></span></p>
+            <p>Teléfono: <span th:text="${profesional.telefono}"></span></p>
+            <p>Email: <span th:text="${profesional.email}"></span></p>
+            <p>Imagen: </p>
+            <div class="img">
+                <a th:if="${profesional.imagen != null}" th:href="@{/imagen/perfil/__${profesional.id}__}">
+                    <img th:style="'width: 50%; margin: auto; height: auto; padding: 10px 15px;'" th:src="@{/imagen/perfil/__${profesional.id}__}">
+                </a>
+            </div>
+            <p> CALIFICAR :</p> 
+            <div class="puntuacion">
+                <div class="container">
+                    <div class="rating">    
+                        <input type="radio" name="calificacion" value="1" style="--c:#2ae418">
+                        <input type="radio" name="calificacion" value="2" style="--c:#2ae418">
+                        <input type="radio" name="calificacion" value="3" style="--c:#2ae418">
+                        <input type="radio" name="calificacion" value="4" style="--c:#2ae418">
+                        <input type="radio" name="calificacion" value="5" style="--c:#2ae418">
+                    </div>
+                </div>
+            </div> 
+
+        </div> -->
+
+        <br>
+
+        <div class="container mt-4">
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Editar Perfil Profesional</h2>
+                    <div class="text-center">
+                        <a th:if="${session.usuariosession.imagen != null}" th:href="@{/imagen/perfil/__${session.usuariosession.id}__}">
+                            <img class="profile-image" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Perfil">
+                        </a>
+                    </div>
+                    <form th:action="@{/profesional/perfil/__${session.usuariosession.id}__}" method="POST" enctype="multipart/form-data">
+
+                        <div>
+                            <input hidden th:value="${session.usuariosession.id}" name="id">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre">Nombre</label>
+                                <input th:value="${session.usuariosession.nombre}" type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="apellido">Apellido</label>
+                                <input th:value="${session.usuariosession.apellido}" type="text" class="form-control" id="apellido" name="apellido" required>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                                <input th:value="${session.usuariosession.fechaNacimiento}" type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="dni">DNI</label>
+                                <input th:value="${session.usuariosession.dni}" type="text" class="form-control" id="dni" name="dni" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono">Teléfono</label>
+                                <input th:value="${session.usuariosession.telefono}" type="tel" class="form-control" id="telefono" name="telefono" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email</label>
+                                <input th:value="${session.usuariosession.email}" type="email" class="form-control" id="email" name="email"  required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <!-- Horario de consulta -->
+                            <label for="Horarios-disponibles">Horarios disponibles</label>
+
+
+                            <div class="col-md-3 mb-3">
+                                <p> Inicio</p>
+                                <input th:value="${session.usuariosession.horarioEntrada}" type="time" class="form-control" id="horario-disponibles" name="horarioEntrada" required>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <p> Fin</p> 
+                                <input th:value="${session.usuariosession.horarioSalida}" type="time" class="form-control" id="horario-disponibles" name="horarioSalida" required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="matricula">Matrícula:</label>
+                                <input th:value="${session.usuariosession.matricula}" type="text" class="form-control" id="matricula" name="matricula" required>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="especialidad">Especialidad</label>
+                                <!-- <select name="especialidad" id="especialidad"  th:field="*{session.usuariosession.especialidad}"> -->
+                                <select name="especialidad" id="especialidad">
+                                    <option value="CLINICA">Clinica</option>
+                                    <option value="PEDIATRIA">Pediatria</option>
+                                    <option value="GINECOLOGIA">Ginecologia</option>
+                                    <option value="CARDIOLOGIA">Cardiologia</option>
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="lunes" value="LUNES" name="diasDisponibles">
+                                    <label class="custom-control-label" for="lunes">Lunes</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="martes" value="MARTES" name="diasDisponibles">
+                                    <label class="custom-control-label" for="martes">Martes</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="miercoles" value="MIERCOLES" name="diasDisponibles">
+                                    <label class="custom-control-label" for="miercoles">Miércoles</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="jueves" value="JUEVES" name="diasDisponibles">
+                                    <label class="custom-control-label" for="jueves">Jueves</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="viernes" value="VIERNES" name="diasDisponibles">
+                                    <label class="custom-control-label" for="viernes">Viernes</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sabado" value="SABADO" name="diasDisponibles">
+                                    <label class="custom-control-label" for="sabado">Sábado</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="domingo" value="DOMINGO" name="diasDisponibles">
+                                    <label class="custom-control-label" for="domingo">Domingo</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--<div th:each="dia : ${T(App.MediFour.MediFour.enumeraciones.DiaSemana).values()}">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" th:id="${dia}" th:name="diasDisponibles" th:value="${dia}" th:checked="${profesional.diasDisponibles.contains(dia)}" />
+                                <label class="custom-control-label" th:for="${dia}" th:text="${dia}"></label>
+                            </div>
+                        </div> -->
+
+
+
+
+
+                        <div class="row">
+
+                            <!-- Precio de consultas -->
+                            <div class="col-md-6 mb-3">
+                                <label for="precio">Precio consulta</label>
+                                <input th:value="${session.usuariosession.precioConsulta}" type="number" class="form-control" id="precioConsulta"  name="precioConsulta" required>
+                            </div>
+
+                            <br>
+                            <br>
+                            <!-- Se ingresa la imagen de perfil -->
+                            <div class="col-md-6 mb-3">
+                                <label for="imagen">Modificar Imagen</label>
+                                <input type="file" class="form-control-file" id="imagen" name="archivo">
+                            </div>
+
+                        </div>
+
+                        <!--Se ingresan las contraseñas 
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password">Contraseña de nuevo</label>
+                                <input type="password" class="form-control" id="password2" name="password2" required>
+                            </div>
+                        </div> -->
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="observaciones">Observaciones:</label>
+                                <textarea th:value="${session.usuariosession.observaciones}" class="form-control" id="observaciones" name="observaciones" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <br>
+
+                        <button class="btn btn-primary" type="submit" value="Registrar">Modificar</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>  
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

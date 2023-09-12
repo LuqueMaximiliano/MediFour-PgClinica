@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Panel de Control</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body {
+                background-image: url('ruta_de_la_imagen.jpg');
+                /* Reemplaza 'ruta_de_la_imagen.jpg' con la ruta de tu imagen de fondo */
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" th:href="@{/inicio}">MEDIFOUR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container text-center">
+            <h1>Panel de Control</h1><br>
+            <div class="row">
+                <div class="col-md-4">
+                    <a  class="btn btn-secondary btn-block">Usuarios</a>
+                </div>
+                <div class="col-md-4">
+                    <a th:href="@{/profesional/listarAdmin}" class="btn btn-primary btn-block">Profesionales</a>
+                </div>
+                <div class="col-md-4">
+                    <a th:href="@{/paciente/listarAdmin}" class="btn btn-primary btn-block">Pacientes</a>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Activo</th>
+                        <th>Funciones</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuario}">
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.apellido}"></td>
+                        <td th:text="${usuario.dni}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.rol}"></td>
+                        <td th:text="${usuario.activo}"></td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <form th:action="@{/usuario/bajaUsuario/{id}(id=${usuario.id})}" method="get">
+                                <button type="submit" value="Baja" >Baja</button>
+                            </form>
+                            <form th:action="@{/usuario/altaUsuario/{id}(id=${usuario.id})}" method="get">
+                                <button type="submit" value="Alta" >Alta</button>
+                            </form>
+                            <form th:action="@{/usuario/cambiar-rol/{id}(id=${usuario.id})}" method="get">
+                                <button type="submit" value="Cambio" >Cambio Rol</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+</html>

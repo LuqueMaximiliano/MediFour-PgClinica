@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body {
+                background-image: url('assets/img/fondo-login.jpg'); 
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+            .container {
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" th:href="@{/}">MEDIFOUR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+        <!-- Formulario de inicio de sesión -->
+        <div class="container col-md-4">
+            <h2 class="text-center">Iniciar sesión</h2>
+            <form class="formulario" th:action="@{/logincheck}" method="POST">
+
+
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico">
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+            </form>
+
+            <a th:href="@{/register_usuario}" class="appointment-btn scrollto"><span class="d-none d-md-inline">¿No tienes cuenta? Registrate</span></a>
+        </div>
+        <br>
+        <br>
+        
+        <div class="container-boton d-flex justify-content-center">
+            <div class="divVolver">
+                <a th:href="@{/}" class="btn btn-primary">Volver</a>
+            </div>
+        </div>
+     
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

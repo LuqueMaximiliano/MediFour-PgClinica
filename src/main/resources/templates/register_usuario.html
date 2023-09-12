@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url('assets/img/fondo-login.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+          background-color: rgba(67, 65, 65, 0.6); 
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 100px;
+                border: solid #1977cc
+                    .img{
+                    
+                }
+        }
+    </style>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Medifour</a>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Acerca de nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Especialidades</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Doctores</a>
+              </li>
+          </ul>
+        </nav>
+        
+        <div class="container mt-4" style="width: 40rem;">
+            
+            
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="assets/img/icono-paciente1.png" style="display: flex; justify-content: center; align-items: center; width: 50 rem; margin-top: 100px;" class="card-img-top" alt="Icono-Paciente">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuario Paciente</h5>
+                            <p class="card-text">Selecciona esta opcion si eres un nuevo paciente.</p>
+                            <a th:href="@{/paciente/registrar-form}" class="btn btn-primary">Registrarse</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card" style="width: 18rem;">
+                        
+                        <img src="assets/img/icono-profesional1.png" style="display: flex; justify-content: center; align-items: center; width: 50 rem; margin-top: 100px;" class="card-img-top" alt="Icono-Profesional">
+                        <div class="card-body">
+                            <h5 class="card-title">Profesional - Medico</h5>
+                            <p class="card-text">Selecciona esta opcion si eres un nuevo profesional.</p>
+                            <a th:href="@{/profesional/registrar-form}" class="btn btn-primary">Registrarse</a>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            
+        </div>
+        <br>
+        <br>
+        
+         <div class="container-boton d-flex justify-content-center">
+                <div class="divVolver">
+                    <a th:href="@{/login}" class="btn btn-primary">Volver</a>
+                </div>
+            </div>
+    
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Consulta de Pacientes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">Consulta de Pacientes</h1>
+        
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Telefono</th>
+                    <th>E-Mail</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Obra Social</th>
+                    <th>N° de Afiliado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="paciente : ${paciente}">   
+                    <td th:text="${paciente.nombre}"></td>
+                    <td th:text="${paciente.apellido}"></td>
+                    <td th:text="${paciente.dni}"></td>
+                    <td th:text="${paciente.telefono}"></td>
+                    <td th:text="${paciente.email}"></td>
+                    <td th:text="${paciente.fechaNacimiento}"></td>
+                    <td th:text="${paciente.obraSocial}"></td>
+                    <td th:text="${paciente.numeroAfiliado}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <a href="javascript: history.go(-1)"> VOLVER ATRAS </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

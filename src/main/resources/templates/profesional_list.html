@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Profesionales</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h1 class="logo me-auto"><a class="navbar-brand" th:href="@{/inicio}">MEDIFOUR</a></h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <h1 class="text-center">Lista de Profesionales</h1>
+
+            <div class="row">
+                <div class="col-md-4" th:each="profesional : ${profesionales}">
+                    <div class="card mb-3">
+                        <img th:if="${profesional.imagen != null}" th:src="@{/imagen/perfil/__${profesional.id}__}" class="card-img-top" alt="Imagen del profesional">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></h5>
+                            <p class="card-text" th:text="${profesional.especialidad}"></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" th:text="'DNI: ' + ${profesional.dni}"></li>
+                            <li class="list-group-item" th:text="'Teléfono: ' + ${profesional.telefono}"></li>
+                            <li class="list-group-item" th:text="'E-Mail: ' + ${profesional.email}"></li>
+                        </ul>
+                        <div class="card-body">
+                            <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
+                                <input type="submit" value="Dar de Baja" class="btn btn-danger">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/inicio}" class="btn btn-secondary my-2">Volver</a>
+                </div>
+            </div>
+        </section>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
